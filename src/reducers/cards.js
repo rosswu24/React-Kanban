@@ -1,20 +1,19 @@
 import {ADD_CARD} from '../actions/Cards.js';
 
-const initialState= [];
+const initialState = [''];
 
 const cards = (state = initialState, action) =>{
-  switch(action.type){
-    case ADD_CARD:
-    return[...state, 
-    action.title,
-    action.priority,
-    action.status,
-    action.created,
-    action.assigned];
+	
+	console.log('test STATE: ', initialState, this.state);
 
-    default: 
-      return state;
-  }
+	switch(action.type){
+		case ADD_CARD:
+		console.log('TEST Switch', [...state, action.card]);
+		return [ ... state,action.card];
+
+		default: 
+			return state;
+	}
 };
 
 export default cards;
