@@ -1,21 +1,12 @@
-// import {ADD_CARD} from '../actions/Cards.js';
+/*jshint esversion: 6 */
 
-// const initialState= {testQueue:['Do Work','test1']};
+import { combineReducers } from 'redux';
+import cards from './cards';
 
-// const cards = (state = initialState, action) =>{
-  
-//  switch(action.type){
-//    case ADD_CARD:
-//    return[...state, 
-//    action.title,
-//    action.priority,
-//    action.status,
-//    action.created,
-//    action.assigned];
 
-//    default: 
-//      return state;
-//  }
-// };
+export default combineReducers({
+  cards,
+});
 
-// export default cards;
+
+//combined reducers format

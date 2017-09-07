@@ -1,53 +1,60 @@
+/*jshint esversion: 6 */
+
 import React, { Component } from 'react';
 // import logo from '.././logo.svg';
 import NewCard from '../NewCard/';
-import queueComponents from '../../components/Queue.js';
 import {connect} from 'react-redux';
 import {addCard} from '../../actions/Cards.js'; // grab from the actions/Card, function
 import './App.css';
 
 
 class App extends Component{
-	render(){
-		return(
-			<div>
-				<h1>hello world</h1>
+  render(){
+    console.log('app.js', this.props.cards);
+    return(
+      <div>
+        <section id = 'queue'>
+          <h2> Queue </h2>
+          {
+            this.props.cards.map(card=>{
+              console.log('card:', card);
+              return (
+                <NewCard
+                  title = {card.title}
+                  priority = {card.priority}
+                  status = {card.status}
+                  created = {card.created}
+                  assigned = {card.assigned}
+                />
+              )
+            })
+          }
+        </section>
 
-				<section id = 'queue'>
-					<h2> Queue </h2>
-						<NewCard 
-							newCardTitle= {this.props.title}
-							newCardPriority = {this.props.priority}
-							newCardCreated={this.props.created}
-							newCardAssigend={this.props.assigned}
-						/>
-				</section>
+        <section id = 'inProgress'>
+          <h2>In Progress</h2>
+            Progess page
+        </section>
 
-				<section id = 'inProgress'>
-					<h2>In Progress</h2>
-						Progess page
-				</section>
+        <section id = 'done'>
+          <h2>Done</h2>
+            Done
+        </section>
 
-				<section id = 'done'>
-					<h2>Done</h2>
-						Done
-				</section>
-
-
-
-
-				</div>
-			)
-	}
+        </div>
+      )
+  }
 
 }
 
 const mapStateToProps = (state) =>{
-	return {
-		title: state.title,
-		priority: state.priority,
-		created: state.created
-	}
+      console.log('mapStateToProps: ', state)
+  return {
+    cards: state.cards // this points to the reducers cards 
+    //need to define state, because this is from the state store 
+
+  }
 }
-const ConnectedApp = connect()(App)
+
+const ConnectedApp = connect(mapStateToProps)(App)
 export default ConnectedApp;
