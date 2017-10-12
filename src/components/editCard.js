@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 class editCard extends Component{
   render(){
     this.props.cards.map((cards)=>{
-      return this.renderitem(cards)
-    })
+      return this.renderitem(cards);
+    });
   }
 }
 

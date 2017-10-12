@@ -2,15 +2,15 @@
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {addCard} from '../../actions/Cards.js';
+import {addCard,loadCard} from '../../actions/Cards.js';
 
 class NewCard extends Component{
   constructor(props) {
     super(props);
     this.state ={
       title: '',
-      priority: '',
-      status: '',
+      priority: 'low',
+      status: 'queue',
       created: '',
       assigned: ''
     };
@@ -20,15 +20,31 @@ class NewCard extends Component{
     console.log(this.props);
   }
 
-  submitCard(e){
-    // let newState = {
-    //  title: this.state.title,
-    //  priority: this.state.priority, // low
-    //  created: this.state.created, //input users name in here 
-    //  assigned:this.state.assigned
-    // };
- console.log('this.state: ', this.state);
-  this.props.addCard(this.state);
+  submitCard(){
+    this.props.addCard(this.state);
+  }
+
+  submitGetCard(){
+    this.props.loadCard();
+  }
+
+  nextButton(e){
+    // let progress = 'In Progress'.toLowerCase();
+    // // this.props.addCard.map(card(currentValue, index) =>{
+    //  if(progress.includes(this.state)){
+    //    console.log('hi');
+    //  }
+    // // });
+  }
+
+  moveCards(){
+    let status = this.state.status.toLowerCase();
+    if (status === 'In Progress'.toLowerCase()){
+      //move the card to the next field
+      console.log('IT WORKS');
+    }else{
+      //display an error
+    }
   }
 
 
@@ -106,6 +122,7 @@ render(){
       <br />
 
      <button onClick={this.submitCard.bind(this)}>Submit New Card </button>
+     <button onClick={this.submitGetCard.bind(this)}>Get</button>
 
     </div>
     )

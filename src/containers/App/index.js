@@ -2,58 +2,62 @@
 
 import React, { Component } from 'react';
 // import logo from '.././logo.svg';
-import NewCard from '../NewCard/';
+import Card from '../Card/';
 import {connect} from 'react-redux';
-import {addCard} from '../../actions/Cards.js'; // grab from the actions/Card, function
+import {addCard,loadCard} from '../../actions/Cards.js'; // grab from the actions/Card, function
 import './App.css';
 
-
 class App extends Component{
-  render(){
-    console.log('app.js', this.props.cards);
-    return(
-      <div>
-        <section id = 'queue'>
-          <h2> Queue </h2>
-          {
-            this.props.cards.map(card=>{
-              console.log('card:', card);
-              return (
-                <NewCard
-                  title = {card.title}
-                  priority = {card.priority}
-                  status = {card.status}
-                  created = {card.created}
-                  assigned = {card.assigned}
-                />
-              )
-            })
-          }
-        </section>
+	componentWillMount() {
+		let httpRequest = new XMLHttpRequest();
+		httpRequest.open('GET', '/api/cards');
+	}
 
-        <section id = 'inProgress'>
-          <h2>In Progress</h2>
-            Progess page
-        </section>
+	render(){
+		console.log('app.js', this.props.cards);
+		return(
+			<div>
+				<section id = 'queue'>
+					<h2> Queue </h2>
+					{
+						this.props.cards.map(card=>{
+							console.log('card:', card);
+							return (
+								<Card
+									title = {card.title}
+									priority = {card.priority}
+									status = {card.status}
+									created = {card.created}
+									assigned = {card.assigned}
+								/>
+							)
+						})
+					}
+				</section>
 
-        <section id = 'done'>
-          <h2>Done</h2>
-            Done
-        </section>
+				<section id = 'inProgress'>
+					<h2>In Progress</h2>
+						Progess page
+				</section>
 
-        </div>
-      )
-  }
+				<section id = 'done'>
+					<h2>Done</h2>
+						Done
+				</section>
+
+				</div>
+			)
+	}
 
 }
 
 const mapStateToProps = (state) =>{
-      console.log('mapStateToProps: ', state)
-  return {
-    cards: state.cards // this points to the reducers cards 
-    //need to define state, because this is from the state store 
+			console.log('mapStateToProps: ', state)
+	return {
+		cards: state.cards // this points to the reducers cards 
+		//need to define state, because this is from the state store 
 
-  }
+	}
 }
 
 const ConnectedApp = connect(mapStateToProps)(App)
